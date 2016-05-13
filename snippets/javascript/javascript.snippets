@@ -279,3 +279,106 @@ snippet us
 # setTimeout function
 snippet timeout
 	setTimeout(function () {${0}}${2}, ${1:10});
+snippet jsproto
+	${1:class_name}.prototype.${2:method_name} =
+	function(${3:first_argument}) {
+		${4:// body...}
+	};
+snippet jsalert
+	alert(${1:});
+snippet jsfunc1
+	function ${1:function_name} (${2:}) {
+		${3:}
+	}
+snippet jsfunc2
+	function(${1}) {${2}};
+snippet jsif
+	if (${1:true}) {${2}};
+snippet jsifelse
+	if (${1:true}) {${2}}
+	else{${3}};
+snippet jst
+	${1:/* condition */} ? ${2:a} : ${3:b}
+snippet jsswitch
+	switch(${1:expression}) {
+		case '${3:case}':
+			${4:// code}
+			break;
+		${5}
+		default:
+			${2:// code}
+	}
+snippet jscase
+	case '${1:case}':
+		${2:// code}
+		break;
+	${3}
+snippet jsfor1
+	for (var ${2:i} = 0; $2 < ${1:Things}.length; $2${3:++}) {
+		${4:$1[$2]}
+	};
+snippet jsfor2
+	for (var ${2:i} = ${1:Things}.length - 1; $2 >= 0; $2${3:--}) {
+		${4:$1[$2]}
+	}
+snippet jswhile
+	while (${1:/* condition */}) {
+		${2:/* code */}
+	}
+snippet jsdo
+	do {
+		${2:/* code */}
+	} while (${1:/* condition */});
+snippet jstimeout
+	setTimeout(function() {${3}}${2}, ${1:10};
+snippet jqvar
+	var $${1:name} = $("${2:}");
+snippet jsvar
+	var ${1:name} = ${2:};
+snippet jsgetbi
+	document.getElementById("${1:}")
+snippet jsgetbt
+	document.getElementsByTagName("${1}")
+snippet jsgetbc
+	document.getElementsByClassName("${1:}")
+snippet jsgeta
+	getAttribute("${1:}")
+snippet jsseta
+	setAttribute("${1:}")
+snippet jsfor
+	for ( var i=0; i < ${1:length}; i++){
+		${2:}
+	}
+snippet jscreatee
+	document.createElement("${1:}")
+snippet jsaddLoadEvent
+	function addLoadEvent(func){
+		var oldonload = window.onload;
+		if(typeof window.onload != 'function'){
+			window.onload = func;
+		}else{
+			window.onload = function(){
+				oldonload();
+				func();
+			}
+		}
+	}
+snippet jsinsertAfter
+	function insertAfter(newElement,targetElement){
+		var parent = targetElement.parentNode;
+		if(parent.lastChild == targetElement){
+			parent.appendChild(newElement);
+		}else{
+			parent.insertBefore(newElement,targetElement.nextSibling);
+		}
+	}
+snippet jsonload
+	windows.onload = function(){
+		${1:}
+	}
+snippet jsappendc
+	appendChild(${1:})
+snippet jscreatet
+	document.createTextNode(${1:})
+snippet jsinsertb
+	insertBefore(${1:});
