@@ -24,10 +24,7 @@ snippet ?i
 snippet ns
 	namespace ${1:Foo\Bar\Baz};
 	${0}
-snippet use
-	use ${1:Foo\Bar\Baz};
-	${0}
-snippet	c
+snippet c
 	class ${1:`vim_snippets#Filename()`}
 	{
 		${0}
@@ -81,15 +78,14 @@ snippet $s
 #getter
 snippet $g
 	${1:$foo}->get${0:Bar}();
-
 # Tertiary conditional
-snippet t
-	$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b};${5}
 snippet =?:
 	$${1:foo} = ${2:true} ? ${3:a} : ${0};
 snippet ?:
 	${1:true} ? ${2:a} : ${0}
-
+snippet t "$retVal = (condition) ? a : b"
+	$${1:retVal} = (${2:condition}) ? ${3:a} : ${4:b};
+# Predefined variables
 snippet C
 	$_COOKIE['${1:variable}']
 snippet E
@@ -106,7 +102,12 @@ snippet S
 	$_SERVER['${1:variable}']
 snippet SS
 	$_SESSION['${1:variable}']
-
+snippet get "get"
+	$_GET['${1}']
+snippet post "post"
+	$_POST['${1}']
+snippet session "session"
+	$_SESSION['${1}']
 # the following are old ones
 snippet inc
 	include '${1:file}';
@@ -138,14 +139,6 @@ snippet doc_vp
 	 * @var ${2:string}
 	 */
 # Class Variable
-snippet doc_
-	/**
-	 * ${1:Return}.
-	 *
-	 * @param integer $foo Comments.
-	 *
-	 * @return ${2:void}
-	 */
 snippet doc_v
 	/**
 	 * ${3:undocumented class variable}
@@ -156,19 +149,16 @@ snippet doc_v
 # Class
 snippet doc_c
 	/**
-	 * ${1:Default.Class.Description.}
+	 * ${3:undocumented class}
 	 *
-	 * @category ${2:}
-	 * @package  ${3:}
-	 * @author   ${4:`g:snips_author` <`g:snips_email`>}
-	 * @license  ${5:`g:snips_license`}
-	 * @link     ${6:`g:snips_link`}
-	 *
+	 * @package ${4:default}
+	 * @subpackage ${5:default}
+	 * @author ${6:`g:snips_author`}
 	 */
-	class ${7:ClassName}
+	${1:}class ${2:}
 	{
-
-	}
+		${0}
+	} // END $1class $2
 # Constant Definition - post doc
 snippet doc_dp
 	/**
@@ -200,15 +190,13 @@ snippet doc_s
 # Function
 snippet doc_f
 	/**
-	 * ${1:Return}.
+	 * ${4:undocumented function}
 	 *
-	 * @param integer $foo Comments.
-	 *
-	 * @return ${2:void}
+	 * @return ${5:void}
+	 * @author ${6:`g:snips_author`}
 	 */
-	${2}function ${2}(${3})
-	{
-		${7}
+	${1}function ${2}(${3})
+	{${0}
 	}
 snippet doc_pf
 	/**
@@ -225,22 +213,26 @@ snippet doc_pf
 # Header
 snippet doc_h
 	/**
-	 * ${1:ClassName}
+	 * ${1}
 	 *
-	 * ${2:`g:snips_php_version`}
-	 * 
-	 * @category   ${2:ClassName}
-	 * @package    ${2:Main}
-	 * @subpackage ${3:Child}
-	 * @author     ${4:`g:snips_author`}
-	 * @copyright  ${5:`g:snips_copyright`}
-	 * @license    ${6:`g:snips_license`}
-	 * @createTime ${7:`strftime('%Y-%m-%d %H:%M:%S %A')`}
-	 * @lastTime   ${8:`strftime('%Y-%m-%d %H:%M:%S %A')`}
-	 *
-	 * @link       ${9:`g:snips_link`}
+	 * @author ${2:`g:snips_author`}
+	 * @version ${3:$Id$}
+	 * @copyright ${4:$2}, `strftime('%d %B, %Y')`
+	 * @package ${0:default}
 	 */
-
+snippet doc_i "interface someClass {}"
+	/**
+	 * $1
+	 * @package ${2:default}
+	 * @author ${3:`!v g:snips_author`}
+	 **/
+	interface ${1:someClass}
+	{${4}
+	}
+snippet inheritdoc "@inheritdoc docblock"
+	/**
+	 * {@inheritdoc}
+	 */
 # Interface
 snippet interface
 	/**
@@ -289,114 +281,93 @@ snippet nc
 		${0}
 	}
 # define(...)
-snippet define
-	define('${1}', '${2}');${3}
-snippet def
-	define('${1}'${2});
+snippet def "define('VARIABLE_NAME', 'definition')"
+	define('${1:VARIABLE_NAME}', ${2:'definition'});
 # defined(...)
 snippet def?
 	${1}defined('${2}')
-snippet wh
+snippet wh "while (condition) { ... }"
 	while (${1:/* condition */}) {
 		${0}
 	}
-# do ... while
-snippet do
+snippet do "do { ... } while (condition)"
 	do {
-		${2:}
-	} while (${1:});
-snippet if
-	if (${1:}) {
-		${2:}
+		${0}
+	} while (${1});
+snippet if "if (condition) { ... }"
+	if (${1}) {
+		${0}
 	}
-snippet ifn
-	if (!${1:/* condition */}) {
+snippet ifn "if (!condition) { ... }"
+	if (!${1}) {
 		${2}
 	}
-snippet ifil
-	<?php if (${1:/* condition */}): ?>
+snippet ifil "<?php if (condition): ?> ... <?php endif; ?>"
+	<?php if (${1}): ?>
 		${0}
 	<?php endif; ?>
-snippet ife
-	if (${1:}) {
-		${2:}
+snippet ife "if (cond) { ... } else { ... }"
+	if (${1}) {
+		${2}
 	} else {
-		${3:}
+		${3}
 	}
-	${4}
-snippet ifeil
-	<?php if (${1:/* condition */}): ?>
-		${2:<!-- html... -->}
+	${0}
+snippet ifeil "<?php if (condition): ?> ... <?php else: ?> ... <?php endif; ?>"
+	<?php if (${1}): ?>
+		${2}
 	<?php else: ?>
-		${3:<!-- html... -->}
+		${3}
 	<?php endif; ?>
 	${0}
-snippet ifthrow
-	if(! ${1:}){
-		throw new Exception("");
-	}
-snippet el
+snippet el "else { ... }"
 	else {
 		${0}
 	}
-snippet eif
+snippet eif "elseif(condition) { ... }"
 	elseif (${1}) {
 		${0}
 	}
-snippet switch
-	switch ($${1:}) {
-	case '${2:}':
-		${3:}
-		break;
-		${5:}
-	default:
-		${4:}
-		break;
+snippet switch "switch($var) { case 'xyz': ... default: .... }"
+	switch ($${1:variable}) {
+		case '${2:value}':
+			${3}
+			break;
+		${0}
+		default:
+			${4}
+			break;
 	}
-snippet case
-	case '${1:}':
-		${2:}
-		break;${3}
-snippet for
+snippet case "case 'value': ... break"
+	case '${1:value}':
+		${2}
+		break;
+snippet for "for ($i = 0; $i < $count; $i++) { ... }"
 	for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++}) {
-		${4:}
+		${0}
 	}
-snippet foreach
-	foreach ($${1:} as $${2:}) {
-		${3:}
+snippet foreach "foreach ($var as $value) { .. }"
+	foreach ($${1:variable} as $${2:value}) {
+		${0}
 	}
-snippet foreachv
-	foreach ($${1:} as $${2:} => $${3:}) {
-		${4:}
-	}
-snippet function
-	function ${1:}(${2:}){
-		${3:}
-	}
-snippet func
-	function ${1:}(${2:}){
-		${3:}
-	}
-snippet foreachil
+snippet foreachil "<?php foreach ($var as $value): ?>  ... <?php endforeach; ?>"
 	<?php foreach ($${1:variable} as $${2:value}): ?>
-		${0:<!-- html... -->}
+		${0}
 	<?php endforeach; ?>
-snippet foreachk
+snippet foreachk "foreach ($var as $key => $value) { .. }"
 	foreach ($${1:variable} as $${2:key} => $${3:value}) {
 		${0}
 	}
-snippet foreachkil
+snippet foreachkil "<?php foreach ($var as $key => $value): ?>  ... <?php endforeach; ?>"
 	<?php foreach ($${1:variable} as $${2:key} => $${3:value}): ?>
 		${0:<!-- html... -->}
 	<?php endforeach; ?>
-# $... = array (...)
-snippet array b
+snippet array "$... = array(...)"
 	$${1:arrayName} = array('${2}' => ${3});
-snippet try
+snippet try "try { ... } catch (Exception $e) { ... }"
 	try {
-		${1:}
-	} catch ( Exception $e) {
-		die(${2:});
+		${0}
+	} catch (${1:Exception} $e) {
 	}
 # lambda with closure
 snippet lambda
@@ -423,6 +394,14 @@ snippet http_redirect
 	header ("HTTP/1.1 301 Moved Permanently");
 	header ("Location: ".URL);
 	exit();
+snippet log "error_log(var_export($var, true));"
+	error_log(var_export(${1}, true));
+snippet var "var_export($var)"
+	var_export(${1});
+snippet ve "Dumb debug helper in HTML"
+	echo '<pre>' . var_export(${1}, 1) . '</pre>';
+snippet pc "Dumb debug helper in cli"
+	var_export($1);$0
 # Getters & Setters
 snippet gs
 	/**
@@ -479,14 +458,12 @@ snippet aw
 	array_walk($${1:foo}, function(&$${2:v}, $${3:k}) {
 		$$2 = ${0};
 	});
-
 # static var assign once
 snippet static_var
 	static $${1} = null;
 	if (is_null($$1)){
 		$$1 = ${2};
 	}
-
 snippet CSVWriter
 	<?php
 	
@@ -521,7 +498,6 @@ snippet CSVWriter
 		}
 	
 	}
-
 snippet CSVIterator
 	
 	// http://snipplr.com/view.php?codeview&id=1986 // modified
@@ -624,454 +600,75 @@ snippet CSVIterator
 		}
 	
 	} // end class
-
-snippet is
-	isset($1{VISUAL})
-
-# phpunit	
-snippet ase
-	$this->assertEquals(${1:expected}, ${2:actual});
-
-snippet asne
-	$this->assertNotEquals(${1:expected}, ${2:actual});
-
-snippet asf
-	$this->assertFalse(${1:Something});
-
-snippet ast
-	$this->assertTrue(${1:Something});
-
-snippet asfex
-	$this->assertFileExists(${1:path/to/file});
-
-snippet asfnex
-	$this->assertFileNotExists(${1:path/to/file});
-
-snippet ascon
-	$this->assertContains(${1:Search Value}, ${2:Array or Iterator});
-
-snippet ashk
-	$this->assertArrayHasKey(${1:key}, ${2:array});
-
-snippet asnhk
-	this->assertArrayNotHasKey(${1:value}, ${2:array});
-
-snippet ascha
-	$this->assertClassHasAttribute('${1:Attribute Name}', '${2:ClassName}');
-
-snippet asi
-	$this->assertInstanceOf(${1:expected}, ${2:actual});
-
-snippet tc
-	public function test${1:name_of_the_test}()
-	{
-		${0:code}
-	}
-snippet te 
-	throw new ${1:Exception}("${2:Error Processing Request}");
-
-snippet fpc "file_put_contents" b
-	file_put_contents(${1:file}, ${2:content}${3:, FILE_APPEND});$0
-
-snippet sr "str_replace"
-	str_replace(${1:search}, ${2:replace}, ${3:subject})$0
-
-snippet ia "in_array"
-	in_array(${1:needle}, ${2:haystack})$0
-
-snippet is "isset"
-	isset(${1:var})$0
-
-snippet isa "isset array"
-	isset($${1:array}[${2:key}])$0
-
-snippet in "is_null"
-	is_null($${1:var})$0
-
-snippet fe "file_exists"
-	file_exists(${1:file})$0
-
-snippet id "is_dir"
-	is_dir(${1:path})$0
-
-
-### selfdefine
-snippet php
-	<?php
-	${1}
-snippet phpw
-	<?php ${1}?>
-snippet echo
-	echo ${1:string}${2};
-snippet echop
-	echo '<pre>';
-	 ${1:}
-	echo '</pre>';
-snippet echopvd
-	echo '<pre>';
-	var_dump(${1:});
-	echo '</pre>';
-snippet echoppr
-	echo '<pre>';
-	print_r (${1:});
-	echo '</pre>';
-snippet echopprex
-	echo '<pre>';
-	print_r (${1:});
-	echo '</pre>';exit;
-snippet echopvdex
-	echo '<pre>';
-	var_dump(${1:});
-	echo '</pre>';exit;
-snippet echopvdaex
-	echo '<pre>';
-	var_dump(array('${1:}' => ));
-	echo '</pre>';exit;
-snippet echopvpex
-	echo '<pre>';
-	var_export(array('${1:}' => ), 1);
-	echo '</pre>';exit;
-snippet elvp
-	error_log(var_export(array('${1:}' => ${2}), 1)."\n", 3, "/var/log/php_errors.log");
-snippet elvp1
-	error_log("#${1:}#"."\n", 3, "/var/log/php_errors.log");
-snippet elvpt
-	error_log("#".date('Y-m-d H:i:s')."#"."\n", 3, "/var/log/php_errors.log");
-	error_log(var_export(array('${1:}' => ${2}), 1)."\n", 3, "/var/log/php_errors.log");
-snippet echoh
-	echo ${1:string}.'<hr />';
-snippet echob
-	echo ${1:string}.'<br />';
-snippet echo1b
-	echo '##111##'.'<br />';
-snippet echo2b
-	echo '##222##'.'<br />';
-snippet echo3b
-	echo '##333##'.'<br />';
-snippet echo4b
-	echo '##444##'.'<br />';
-snippet echoex
-	echo ${1:string}${2};exit;
-snippet $
-	$${1:string} = "${2:}";
-snippet print
-	print (${1:string});
-snippet printr
-	print_r (${1:string});
-snippet vd
-	var_dump(${1:});
-snippet vdx
-	var_dump(${1:});exit;
-snippet vda
-	var_dump(array('' => ));
-snippet include
-	include ${1:file};${2}
-snippet include1
-	include_once ${1:file};${2}
-snippet require
-	require ${1:file};${2}
-snippet require1
-	require_once ${1:file};${2}
-# $GLOBALS['...']
-snippet globals
-	$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${5}
-snippet cookie
-	$_COOKIE['${1:variable}']${2}
-snippet env
-	$_ENV['${1:variable}']${2}
-snippet files
-	$_FILES['${1:variable}']${2}
-snippet get
-	$_GET['${1:variable}']${2}
-snippet post
-	$_POST['${1:variable}']${2}
-snippet request
-	$_REQUEST['${1:variable}']${2}
-snippet server
-	$_SERVER['${1:variable}']${2}
-snippet session
-	$_SESSION['${1:variable}']${2}
-snippet exit
-	exit(${1:string});
-snippet thrownew
-	throw new ${1}
-snippet thrownewi
-	throw new InvalidArgumentException(${1});
-snippet invalid
-	InvalidArgumentException
-snippet publicft
-	public function testException(){
-
-	}
-
-snippet tryif
-	try{
-		${1}
-	}
-
-	catch (InvalidArgumentException $expected) {
-		return;${2}
-	}
-
-	$this->fail('${3}');
-snippet ex
-	exception
-snippet thissee
-	$this->setExpectedException('${1}');
-snippet publicftf
-	public function testFailingInclude(){
-		include '${1}';
-	}
-snippet extends
-	class ${1:Child} extends ${2:}
-	{
-		${3:}
-	}
-snippet clone
-	clone $${1:};
-snippet static
-	static $${1:};
-snippet const
-	const ${1:};
-snippet public
-	public $${1:};
-snippet private
-	private $${1:};
-snippet protected
-	protected $${1:};
-snippet staticpub
-	public static $${1:};
-snippet staticpri
-	private static $${1:};
-snippet staticpro
-	protect static $${1:};
-snippet staticf
-	static function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet staticpubf
-	public static function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet staticprif
-	private static function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet staticprof
-	protected static function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet publicf
-	public function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet privatef
-	private function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet protectedf
-	protected function ${1:}(${2:})
-	{
-		${3:}
-	}
-snippet constructf
-	function __construct(${1:})
-	{
-		${2:}
-	}
-snippet destructf
-	function __destruct(${1:})
-	{
-		${2:}
-	}
-snippet clonef
-	function __clone(${1:})
-	{
-		${2:}
-	}
-snippet getf
-	function __get($${1:})
-	{
-		${2:}
-	}
-snippet issetf
-	function __isset(${1:})
-	{
-		${2:}
-	}
-snippet setf
-	function __set($${1:name},$${2:value})
-	{
-		${3:}
-	}
-snippet unsetf
-	function __unset($${1:name})
-	{
-		${2:}
-	}
-snippet callf
-	function __call($${1:method_name},$${2:parameters})
-	{
-		${3:}
-	}
-snippet sleepf
-	function __sleep()
-	{
-		${1:}
-		return ${2:}
-	}
-snippet wakeupf
-	function __wakeup()
-	{
-		${1:}
-	}
-snippet tostringf
-	function __toString()
-	{
-		${1:}
-	}
-snippet autoloadf
-	function __autoload(${1:class_name})
-	{
-		${1:}
-	}
-snippet parent
-	parent::${1:}(${2:});
-snippet self
-	self::${1:}(${2:});
-snippet abstract
-	abstract class ${1:}{
-		abstract function ${2:abstract_method}(${3:}){
-			${4:}
-		}
-	}
-snippet finalf
-	final function ${1:}
-	{
-		${2:}
-	}
-snippet finalc
-	final class ${1:}
-	{
-		${2:}
-	}
-snippet implements
-	class ${1:} implements ${2:}
-	{
-		${2:}
-	}
-snippet new
-	$${1:} = new ${2:}();
-snippet else
-	else {
-		${1:}
-	}
-snippet elseif
-	elseif (${1:}) {
-		${2:}
-	}
-# $... = array (...)
-snippet array
-	$${1:} = array('${2}' => ${3});${4}
-snippet this
-	$this->${1:}
 # phpunit
-snippet ase
+snippet ase "$this->assertEquals()"
 	$this->assertEquals(${1:expected}, ${2:actual});
-
-snippet asne
+snippet asne "$this->assertNotEquals()"
 	$this->assertNotEquals(${1:expected}, ${2:actual});
-
-snippet asf
-	$this->assertFalse(${1:Something});
-
-snippet ast
-	$this->assertTrue(${1:Something});
-
-snippet asfex
-	$this->assertFileExists(${1:path/to/file});
-
-snippet asfnex
-	$this->assertFileNotExists(${1:path/to/file});
-
-snippet ascon
-	$this->assertContains(${1:Search Value}, ${2:Array or Iterator});
-
-snippet ashk
-	$this->assertArrayHasKey(${1:key}, ${2:array});
-
-snippet asnhk
-	this->assertArrayNotHasKey(${1:value}, ${2:array});
-
-snippet ascha
-	$this->assertClassHasAttribute('${1:Attribute Name}', '${2:ClassName}');
-
-snippet asi
+snippet asf "$this->assertFalse()"
+	$this->assertFalse(${1});
+snippet ast "$this->assertTrue()"
+	$this->assertTrue(${1});
+snippet asfex "$this->assertFileExists()"
+	$this->assertFileExists(${1:'path/to/file'});
+snippet asfnex "$this->assertFileNotExists()"
+	$this->assertFileNotExists(${1:'path/to/file'});
+snippet ascon "$this->assertContains()"
+	$this->assertContains(${1:$needle}, ${2:$haystack});
+snippet ashk "$this->assertArrayHasKey()"
+	$this->assertArrayHasKey(${1:$key}, ${2:$array});
+snippet asnhk "$this->assertArrayNotHasKey()"
+	this->assertArrayNotHasKey(${1:$key}, ${2:$array});
+snippet ascha "$this->assertClassHasAttribute()"
+	$this->assertClassHasAttribute(${1:$attributeName}, '${2:$className}');
+snippet asi "$this->assertInstanceOf(...)"
 	$this->assertInstanceOf(${1:expected}, ${2:actual});
-
-snippet tc
-	public function test${1:name_of_the_test}()
+snippet test "public function testXYZ() { ... }"
+	public function test${1}()
 	{
-		${0:code}
+		${0}
 	}
-snippet te 
+snippet setup "protected function setUp() { ... }"
+	protected function setUp()
+	{
+		${0}
+	}
+snippet teardown "protected function tearDown() { ... }"
+	protected function tearDown()
+	{
+		${0}
+	}
+snippet exp "phpunit expects"
+	expects($this->${1:once}())
+		->method('${2}')
+		->with($this->equalTo(${3})${4})
+		->will($this->returnValue(${5}));
+snippet testcmt "phpunit comment with group"
+	/**
+	* @group ${1}
+	*/
+snippet fail "$this->fail()"
+	$this->fail(${1});
+snippet marki "$this->markTestIncomplete()"
+	$this->markTestIncomplete(${1});
+snippet marks "$this->markTestSkipped()"
+	$this->markTestSkipped(${1});
+# end of phpunit snippets
+snippet te "throw new Exception()"
 	throw new ${1:Exception}("${2:Error Processing Request}");
-
 snippet fpc "file_put_contents" b
 	file_put_contents(${1:file}, ${2:content}${3:, FILE_APPEND});$0
-
 snippet sr "str_replace"
 	str_replace(${1:search}, ${2:replace}, ${3:subject})$0
-
 snippet ia "in_array"
 	in_array(${1:needle}, ${2:haystack})$0
-
 snippet is "isset"
 	isset(${1:var})$0
-
 snippet isa "isset array"
 	isset($${1:array}[${2:key}])$0
-
 snippet in "is_null"
 	is_null($${1:var})$0
-
 snippet fe "file_exists"
 	file_exists(${1:file})$0
-
 snippet id "is_dir"
 	is_dir(${1:path})$0
-#mend detail
-# 3.8.5 add jsfor                           2012-09-18 17:30:30
-# 3.8.6 add jsaddLoadEvent,addAppend        2012-09-19 14:06:52
-# 3.8.7 change printf to print_r ,delete '' 2012-09-29 10:07:17
-# 3.9.1 add some js shortcut                2012-10-18 11:11:23
-# 3.9.2 add echop                           2012-10-26 10:12:35
-# 3.9.3 change switch space                 2012-12-07 13:59:41
-# 3.9.4 add echoh echob                     2013-03-12 10:58:17
-# 4.0.1 add echopvd echoppr                 2013-04-17 13:57:20
-# 4.0.2 fix define                          2013-05-03 16:09:56
-# 6.0.1 add nbs2 nbs3                       2013-06-06 15:00:28
-# 6.0.2 add exit                            2013-06-24 14:48:28
-# 7.0.1 add vdx,echoex,echopvdex            2013-07-18 15:32:22
-#10.0.1 fix some php format                 2013-10-22 18:14:48
-#10.0.2 fix some php format,add staticp*f   2013-10-23 10:52:57
-#10.0.3 add phpu                            2013-10-24 16:33:26
-#11.0.1 change php format                   2013-11-01 14:56:23
-#11.0.2,3 change static at the end          2013-11-01 17:49:45
-#11.0.4 add issetf                          2013-11-06 11:48:37
-#11.0.5 fix try add space                   2013-11-07 18:13:24
-#12.0.1 add echo1b echo2b ...               2013-12-19 10:30:43
-#13.0.1 add echopvpex,elvp1,elvp,echopvdaex 2014-01-26 13:54:37
-#13.0.2 add vda                             2014-01-26 14:19:51
-#13.0.3 add echopprex                       2014-01-27 13:52:26
-#14.7.1 add doc_pf                          2014-07-02 11:04:10
-#14.8.1 add doc_                            2014-08-12 13:38:56
-#15.1.1 add foreachv                        2015-01-09 09:55:26
-#15.1.2 add new class/doc_h                 2015-01-29 13:39:27
-#16.1.1 add new php                         2016-04-20 13:17:34
