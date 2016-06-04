@@ -672,3 +672,294 @@ snippet fe "file_exists"
 	file_exists(${1:file})$0
 snippet id "is_dir"
 	is_dir(${1:path})$0
+snippet doc_
+	/**
+	 * ${1:Return}.
+	 *
+	 * @param integer $foo Comments.
+	 *
+	 * @return ${2:void}
+	 */
+snippet define
+	define('${1}', '${2}');${3}
+snippet ifthrow
+	if(! ${1:}){
+		throw new Exception("");
+	}
+snippet func
+	function ${1:}(${2:}){
+		${3:}
+	}
+snippet php
+	<?php
+	${1}
+snippet phpw
+	<?php ${1}?>
+snippet echo
+	echo ${1:string}${2};
+snippet echop
+	echo '<pre>';
+	 ${1:}
+	echo '</pre>';
+snippet echopvd
+	echo '<pre>';
+	var_dump(${1:});
+	echo '</pre>';
+snippet echoppr
+	echo '<pre>';
+	print_r (${1:});
+	echo '</pre>';
+snippet echopprex
+	echo '<pre>';
+	print_r (${1:});
+	echo '</pre>';exit;
+snippet echopvdex
+	echo '<pre>';
+	var_dump(${1:});
+	echo '</pre>';exit;
+snippet echopvdaex
+	echo '<pre>';
+	var_dump(array('${1:}' => ));
+	echo '</pre>';exit;
+snippet echopvpex
+	echo '<pre>';
+	var_export(array('${1:}' => ), 1);
+	echo '</pre>';exit;
+snippet elvp
+	error_log(var_export(array('${1:}' => ${2}), 1)."\n", 3, "/var/log/php_errors.log");
+snippet elvp1
+	error_log("#${1:}#"."\n", 3, "/var/log/php_errors.log");
+snippet elvpt
+	error_log("#".date('Y-m-d H:i:s')."#"."\n", 3, "/var/log/php_errors.log");
+	error_log(var_export(array('${1:}' => ${2}), 1)."\n", 3, "/var/log/php_errors.log");
+snippet echoh
+	echo ${1:string}.'<hr />';
+snippet echob
+	echo ${1:string}.'<br />';
+snippet echo1b
+	echo '##111##'.'<br />';
+snippet echo2b
+	echo '##222##'.'<br />';
+snippet echo3b
+	echo '##333##'.'<br />';
+snippet echo4b
+	echo '##444##'.'<br />';
+snippet echoex
+	echo ${1:string}${2};exit;
+snippet $
+	$${1:string} = "${2:}";
+snippet print
+	print (${1:string});
+snippet printr
+	print_r (${1:string});
+snippet vd
+	var_dump(${1:});
+snippet vdx
+	var_dump(${1:});exit;
+snippet vda
+	var_dump(array('' => ));
+snippet include
+	include ${1:file};${2}
+snippet include1
+	include_once ${1:file};${2}
+snippet require
+	require ${1:file};${2}
+snippet require1
+	require_once ${1:file};${2}
+# $GLOBALS['...']
+snippet globals
+	$GLOBALS['${1:variable}']${2: = }${3:something}${4:;}${5}
+snippet cookie
+	$_COOKIE['${1:variable}']${2}
+snippet env
+	$_ENV['${1:variable}']${2}
+snippet files
+	$_FILES['${1:variable}']${2}
+snippet get
+	$_GET['${1:variable}']${2}
+snippet post
+	$_POST['${1:variable}']${2}
+snippet request
+	$_REQUEST['${1:variable}']${2}
+snippet server
+	$_SERVER['${1:variable}']${2}
+snippet session
+	$_SESSION['${1:variable}']${2}
+snippet exit
+	exit(${1:string});
+snippet thrownew
+	throw new ${1}
+snippet thrownewi
+	throw new InvalidArgumentException(${1});
+snippet invalid
+	InvalidArgumentException
+snippet publicft
+	public function testException(){
+
+	}
+snippet tryif
+	try{
+		${1}
+	}
+
+	catch (InvalidArgumentException $expected) {
+		return;${2}
+	}
+
+	$this->fail('${3}');
+snippet ex
+	exception
+snippet thissee
+	$this->setExpectedException('${1}');
+snippet publicftf
+	public function testFailingInclude(){
+		include '${1}';
+	}
+snippet extends
+	class ${1:Child} extends ${2:}
+	{
+		${3:}
+	}
+snippet clone
+	clone $${1:};
+snippet static
+	static $${1:};
+snippet const
+	const ${1:};
+snippet public
+	public $${1:};
+snippet private
+	private $${1:};
+snippet protected
+	protected $${1:};
+snippet staticpub
+	public static $${1:};
+snippet staticpri
+	private static $${1:};
+snippet staticpro
+	protect static $${1:};
+snippet staticf
+	static function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet staticpubf
+	public static function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet staticprif
+	private static function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet staticprof
+	protected static function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet publicf
+	public function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet privatef
+	private function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet protectedf
+	protected function ${1:}(${2:})
+	{
+		${3:}
+	}
+snippet constructf
+	function __construct(${1:})
+	{
+		${2:}
+	}
+snippet destructf
+	function __destruct(${1:})
+	{
+		${2:}
+	}
+snippet clonef
+	function __clone(${1:})
+	{
+		${2:}
+	}
+snippet getf
+	function __get($${1:})
+	{
+		${2:}
+	}
+snippet issetf
+	function __isset(${1:})
+	{
+		${2:}
+	}
+snippet setf
+	function __set($${1:name},$${2:value})
+	{
+		${3:}
+	}
+snippet callf
+	function __call($${1:method_name},$${2:parameters})
+	{
+		${3:}
+	}
+snippet sleepf
+	function __sleep()
+	{
+		${1:}
+		return ${2:}
+	}
+snippet wakeupf
+	function __wakeup()
+	{
+		${1:}
+	}
+snippet tostringf
+	function __toString()
+	{
+		${1:}
+	}
+snippet autoloadf
+	function __autoload(${1:class_name})
+	{
+		${1:}
+	}
+snippet parent
+	parent::${1:}(${2:});
+snippet self
+	self::${1:}(${2:});
+snippet abstract
+	abstract class ${1:}{
+		abstract function ${2:abstract_method}(${3:}){
+			${4:}
+		}
+	}
+snippet finalf
+	final function ${1:}
+	{
+		${2:}
+	}
+snippet finalc
+	final class ${1:}
+	{
+		${2:}
+	}
+snippet new
+	$${1:} = new ${2:}();
+snippet else
+	else {
+		${1:}
+	}
+snippet elseif
+	elseif (${1:}) {
+		${2:}
+	}
+snippet array
+	$${1:} = array('${2}' => ${3});${4}
+snippet this
+	$this->${1:}
