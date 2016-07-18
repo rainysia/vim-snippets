@@ -697,7 +697,19 @@ snippet doc_pf
 	 */
 	public ${2}function ${2}(${3})
 	{
-		${7}
+		${0}
+	}
+snippet doc_psf
+	/**
+	 * ${1:Return}.
+	 *
+	 * @param integer $foo Comments.
+	 *
+	 * @return ${2:void}
+	 */
+	public static function ${2}(${3})
+	{
+		${0}
 	}
 snippet define
 	define('${1}', '${2}');${3}
