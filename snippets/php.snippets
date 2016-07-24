@@ -2,6 +2,8 @@ snippet <?
 	<?php
 
 	${0}
+snippet dst "declare(strict_types=1)"
+	declare(strict_types=${1:1});
 snippet ec
 	echo ${0};
 snippet <?e
@@ -150,12 +152,9 @@ snippet doc_c
 	/**
 	 * ${3:undocumented class}
 	 *
-	 * @category ${4:default}
-	 * @package  ${5:default}
-	 * @author   ${6:`g:snips_author` <`g:snips_email`>}
-	 * @license  ${7:`g:snips_license`}
-	 *
-	 * @link ${7:`g:snips_link`}
+	 * @package ${4:default}
+	 * @subpackage ${5:default}
+	 * @author ${6:`g:snips_author`}
 	 */
 	${1:}class ${2:}
 	{
@@ -199,18 +198,6 @@ snippet doc_f
 	 */
 	${1}function ${2}(${3})
 	{${0}
-	}
-snippet doc_pf
-	/**
-	 * ${1:Return}.
-	 *
-	 * @param integer $foo Comments.
-	 *
-	 * @return ${2:void}
-	 */
-	public ${2}function ${2}(${3})
-	{
-		${7}
 	}
 # Header
 snippet doc_h
@@ -674,6 +661,9 @@ snippet fe "file_exists"
 	file_exists(${1:file})$0
 snippet id "is_dir"
 	is_dir(${1:path})$0
+###############################################
+#### self-defined php snippets start ##########
+###############################################
 snippet doc_
 	/**
 	 * ${1:Return}.
@@ -682,6 +672,45 @@ snippet doc_
 	 *
 	 * @return ${2:void}
 	 */
+snippet doc_c
+	/**
+	 * ${3:undocumented class}
+	 *
+	 * @category ${4:default}
+	 * @package  ${5:default}
+	 * @author   ${6:`g:snips_author` <`g:snips_email`>}
+	 * @license  ${7:`g:snips_license`}
+	 *
+	 * @link ${7:`g:snips_link`}
+	 */
+	${1:}class ${2:}
+	{
+		${0}
+	}
+snippet doc_pf
+	/**
+	 * ${1:Return}.
+	 *
+	 * @param integer $foo Comments.
+	 *
+	 * @return ${2:void}
+	 */
+	public ${2}function ${2}(${3})
+	{
+		${0}
+	}
+snippet doc_psf
+	/**
+	 * ${1:Return}.
+	 *
+	 * @param integer $foo Comments.
+	 *
+	 * @return ${2:void}
+	 */
+	public static function ${2}(${3})
+	{
+		${0}
+	}
 snippet define
 	define('${1}', '${2}');${3}
 snippet ifthrow
@@ -980,3 +1009,6 @@ snippet array
 	$${1:} = array('${2}' => ${3});${4}
 snippet this
 	$this->${1:}
+###############################################
+#### self-defined php snippets end ##########
+###############################################
