@@ -783,11 +783,11 @@ snippet echopvdex
 	echo '</pre>';exit;
 snippet echopvdaex
 	echo '<pre>';
-	var_dump(array('${1:}' => ));
+	var_dump(['${1:}' => ]);
 	echo '</pre>';exit;
 snippet echopvpex
 	echo '<pre>';
-	var_export(array('${1:}' => ), 1);
+	var_export(['${1:}' => ], 1);
 	echo '</pre>';exit;
 snippet echon
 	echo "\n";
@@ -811,19 +811,19 @@ snippet echonvdex
 	echo "\n";exit;
 snippet echonvdaex
 	echo "\n";
-	var_dump(array('${1:}' => ));
+	var_dump(['${1:}' => ]);
 	echo "\n";exit;
 snippet echonvpex
 	echo "\n";
-	var_export(array('${1:}' => ), 1);
+	var_export(['${1:}' => ], 1);
 	echo "\n";exit;
 snippet elvp
-	error_log(var_export(array('${1:}' => ${2}), 1)."\n", 3, "/var/log/php_errors.log");
+	error_log(var_export(['${1:}' => ${2}], 1)."\n", 3, "/var/log/php_errors.log");
 snippet elvp1
 	error_log("#${1:}#"."\n", 3, "/var/log/php_errors.log");
 snippet elvpt
 	error_log("#".date('Y-m-d H:i:s')."#"."\n", 3, "/var/log/php_errors.log");
-	error_log(var_export(array('${1:}' => ${2}), 1)."\n", 3, "/var/log/php_errors.log");
+	error_log(var_export(['${1:}' => ${2}], 1)."\n", 3, "/var/log/php_errors.log");
 snippet echoh
 	echo ${1:string}.'<hr />';
 snippet echob
@@ -849,7 +849,7 @@ snippet vd
 snippet vdx
 	var_dump(${1:});exit;
 snippet vda
-	var_dump(array('' => ));
+	var_dump(['' => ]);
 snippet include
 	include ${1:file};${2}
 snippet include1
@@ -1067,7 +1067,7 @@ snippet elseif
 		${2:}
 	}
 snippet array
-	$${1:} = array('${2}' => ${3});${4}
+	$${1:} = ['${2}' => ${3}];${4}
 snippet this
 	$this->${1:}
 ###############################################
