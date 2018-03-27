@@ -252,3 +252,16 @@ snippet ja
 	func (p *$1) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&struct{ *$1Alias }{(*$1Alias)(p)})
 	}
+
+###############################################
+#### self-defined go snippets start ##########
+###############################################
+snippets io
+	iota
+snippets prl
+	println("${1:s}")
+snippet pf
+	fmt.Printf("%${1:s}\n", ${2:var})
+###############################################
+#### self-defined go snippets end ##########
+###############################################
