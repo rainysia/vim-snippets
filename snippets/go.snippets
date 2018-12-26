@@ -283,6 +283,10 @@ snippet ts
 	type ${1:name} struct {
 		${2:attrName} ${3:attrType}
 	}
+snippet forj
+	for ${2:j} := 0; $2 < ${1:count}; $2${3:++} {
+		${0:}
+	}
 ###############################################
 #### self-defined go snippets end ##########
 ###############################################
