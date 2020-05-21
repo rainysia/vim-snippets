@@ -289,6 +289,7 @@ snippets prl
 snippet imf
 	import (
 		"fmt"
+		${1:}
 	)
 snippet ts
 	type ${1:name} struct {
@@ -308,6 +309,13 @@ snippet ti
 	type ${1:name} interface {
 		${2:methodName} ${3:returnType}
 	}
+snippet ev
+	${1:conn}, err := ${2:name}
+snippet irn
+	if err != nil {
+		return
+	}
+	${0}
 ###############################################
 #### self-defined go snippets end ##########
 ###############################################
