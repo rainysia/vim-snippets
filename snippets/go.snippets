@@ -311,11 +311,13 @@ snippet ti
 	}
 snippet ev
 	${1:conn}, err := ${2:name}
+snippet ve
+	${1:conn}, err := ${2:name}
 snippet irn
 	if err != nil {
+		${0}
 		return
 	}
-	${0}
 snippet irc
 	if err != nil {
 		${0}
