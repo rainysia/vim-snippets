@@ -289,6 +289,7 @@ snippets prl
 snippet imf
 	import (
 		"fmt"
+		${1:}
 	)
 snippet ts
 	type ${1:name} struct {
@@ -307,6 +308,20 @@ snippet spf
 snippet ti
 	type ${1:name} interface {
 		${2:methodName} ${3:returnType}
+	}
+snippet ev
+	${1:conn}, err := ${2:name}
+snippet ve
+	${1:conn}, err := ${2:name}
+snippet irn
+	if err != nil {
+		${0}
+		return
+	}
+snippet irc
+	if err != nil {
+		${0}
+		continue
 	}
 snippet el "else"
 	else {
